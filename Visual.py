@@ -71,13 +71,14 @@ class Game:
             self.update()
             self.state = "Play"
             time.sleep(self.speed)
+            start = time.time()
             self.shownboxes = set()
             self.update()
             while self.state == "Play":
                 for event in pg.event.get():
                     if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                         pg.quit()
-                    elif event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                    elif event.type == pg.MOUSEBUTTONDOWN and event.button == 1 and time.time() - start > 0.05:
                         lastclick = self.mousepostobox(pg.mouse.get_pos())
                         if lastclick != None:
                             self.clickedboxes.add(lastclick)
